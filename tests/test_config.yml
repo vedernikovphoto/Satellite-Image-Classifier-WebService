@@ -1,0 +1,4 @@
+services:
+  planet_classifier:
+    model_path: 'weights/model.pt'
+    device: 'cpu'

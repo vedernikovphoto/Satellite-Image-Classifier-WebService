@@ -1,0 +1,23 @@
+services:
+  planet_classifier:
+    model_path: 'weights/model.pt'
+    device: ${oc.env:PLANET_DEVICE,'cuda'}
+    classes:
+      - haze
+      - primary
+      - agriculture
+      - clear
+      - water
+      - habitation
+      - road
+      - cultivation
+      - slash_burn
+      - cloudy
+      - partly_cloudy
+      - conventional_mine
+      - bare_ground
+      - artisinal_mine
+      - blooming
+      - selective_logging
+      - blow_down
+    input_size: [224, 224] 
