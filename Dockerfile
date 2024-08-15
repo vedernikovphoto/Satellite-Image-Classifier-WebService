@@ -13,7 +13,9 @@ RUN pip install --upgrade pip && \
 # Step 4: Install system dependencies, including the missing libraries for OpenCV
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
-    libglib2.0-0
+    libglib2.0-0 \
+    build-essential \
+    make
 
 # Step 5: Copy the rest of the application code into the container
 COPY . .
