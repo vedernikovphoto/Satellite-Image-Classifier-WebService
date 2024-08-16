@@ -57,7 +57,7 @@ pull_weights: configure_dvc_remote
 
 .PHONY: configure_dvc_remote
 configure_dvc_remote:
-	dvc remote add --default $(DVC_REMOTE_NAME) ssh://91.206.15.25/home/$(USERNAME)/dvc_files || true
-	dvc remote modify $(DVC_REMOTE_NAME) user $(USERNAME)
+	dvc remote add --default $(DVC_REMOTE_NAME) ssh://91.206.15.25/home/$(STAGING_USERNAME)/dvc_files || true
+	dvc remote modify $(DVC_REMOTE_NAME) user $(STAGING_USERNAME)
 	dvc remote modify $(DVC_REMOTE_NAME) keyfile $(KEY_FILE)
 	dvc config cache.type hardlink,symlink
