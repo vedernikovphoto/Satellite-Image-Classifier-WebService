@@ -15,13 +15,13 @@ stages:
   - lint
   - tests
 
+
 .ssh_key_template: &ssh_key_template
   before_script:
-    - chmod 400 $SSH_PRIVATE_KEY
     - mkdir -p ~/.ssh
-    - cp $SSH_PRIVATE_KEY ~/.ssh/id_rsa
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 400 ~/.ssh/id_rsa
-
+    - ssh-keyscan 91.206.15.25 >> ~/.ssh/known_hosts
   after_script:
     - rm -f ~/.ssh/id_rsa
 
@@ -39,8 +39,6 @@ stages:
 
 .docker_login: &docker_login
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-
 
 # Don't need to manually set these variables or services. 
 # They are configured to ensure that Docker can run properly inside CI jobs. 
