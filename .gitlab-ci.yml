@@ -18,10 +18,11 @@ stages:
 
 .ssh_key_template: &ssh_key_template
   before_script:
+    - chmod 400 $SSH_PRIVATE_KEY
     - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - cp $SSH_PRIVATE_KEY ~/.ssh/id_rsa
     - chmod 400 ~/.ssh/id_rsa
-    - ssh-keyscan 91.206.15.25 >> ~/.ssh/known_hosts
+
   after_script:
     - rm -f ~/.ssh/id_rsa
 
