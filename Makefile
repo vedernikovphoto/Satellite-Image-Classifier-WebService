@@ -3,7 +3,7 @@ IMAGE_NAME := my-planet-app
 CONTAINER_NAME := my-planet-container
 
 DVC_REMOTE_NAME := alexander_vedernikov_remote
-STAGING_USERNAME := $(shell whoami)
+STAGING_USERNAME := a.vedernikov
 KEY_FILE := ~/.ssh/id_rsa
 
 install:
