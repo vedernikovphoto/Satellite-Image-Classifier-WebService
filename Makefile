@@ -65,7 +65,7 @@ configure_dvc_remote:
 
 .PHONY: deploy
 deploy:
-	ansible-playbook -i deploy/ansible/inventory.ini deploy/ansible/deploy.yml \
+	ansible-playbook -vvvv -i deploy/ansible/inventory.ini deploy/ansible/deploy.yml \
 		-e host=$(DEPLOY_HOST) \
 		-e docker_image=$(IMAGE_NAME) \
 		-e docker_tag=$(DOCKER_TAG) \
