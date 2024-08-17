@@ -102,6 +102,8 @@ deploy:
     ANSIBLE_HOST_KEY_CHECKING: "false"
   script:
     - python3 -m pip install ansible==6.0.0
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -H 91.206.15.25 >> ~/.ssh/known_hosts
     - ssh -v a.vedernikov@91.206.15.25 echo "SSH connection successful"
     - make deploy DOCKER_IMAGE=${DOCKER_IMAGE} DOCKER_TAG=${DOCKER_TAG}
 
