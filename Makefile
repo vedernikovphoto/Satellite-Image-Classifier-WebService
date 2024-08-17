@@ -2,6 +2,7 @@ APP_PORT := 5000
 IMAGE_NAME := my-planet-app
 CONTAINER_NAME := my-planet-container
 
+DEPLOY_HOST := demo_host
 DVC_REMOTE_NAME := alexander_vedernikov_remote
 STAGING_USERNAME := a.vedernikov
 KEY_FILE := ~/.ssh/id_rsa
@@ -61,3 +62,18 @@ configure_dvc_remote:
 	dvc remote modify $(DVC_REMOTE_NAME) user $(STAGING_USERNAME)
 	dvc remote modify $(DVC_REMOTE_NAME) keyfile $(KEY_FILE)
 	dvc config cache.type hardlink,symlink
+
+.PHONY: deploy
+deploy:
+	ansible-playbook -i deploy/ansible/inventory.ini deploy/ansible/deploy.yml \
+		-e host=$(DEPLOY_HOST) \
+		-e docker_image=$(IMAGE_NAME) \
+		-e docker_tag=$(DOCKER_TAG) \
+		-e docker_registry_user=$(CI_REGISTRY_USER) \
+		-e docker_registry_password=$(CI_REGISTRY_PASSWORD) \
+		-e docker_registry=$(CI_REGISTRY)
+
+.PHONY: destroy
+destroy:
+	ansible-playbook -i deploy/ansible/inventory.ini deploy/ansible/destroy.yml \
+		-e host=$(DEPLOY_HOST)
