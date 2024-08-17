@@ -27,7 +27,7 @@ stop_container:
 
 .PHONY: lint
 lint:
-	PYTHONPATH=. flake8 src/
+	PYTHONPATH=. flake8 .
 
 .PHONY: run_unit_tests
 run_unit_tests:

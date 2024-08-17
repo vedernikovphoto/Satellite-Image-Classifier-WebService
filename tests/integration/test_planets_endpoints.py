@@ -1,12 +1,15 @@
 from fastapi.testclient import TestClient
 from http import HTTPStatus
 
+
 def test_genres_list(client: TestClient):
     response = client.get('/planet/classes')
-    assert response.status_code == HTTPStatus.OK
+    if response.status_code != HTTPStatus.OK:
+        raise AssertionError(f'Expected status {HTTPStatus.OK}, got {response.status_code}')
 
     classes = response.json()['classes']
-    assert isinstance(classes, list)
+    if not isinstance(classes, list):
+        raise AssertionError(f"Expected 'classes' to be a list, got {type(classes)}")
 
 
 def test_predict(client: TestClient, sample_image_bytes: bytes):
@@ -15,11 +18,12 @@ def test_predict(client: TestClient, sample_image_bytes: bytes):
     }
     response = client.post('/planet/predict', files=files)
 
-    assert response.status_code == HTTPStatus.OK
+    if response.status_code != HTTPStatus.OK:
+        raise AssertionError(f'Expected status {HTTPStatus.OK}, got {response.status_code}')
 
     predicted_planets = response.json()['classes']
-
-    assert isinstance(predicted_planets, list)
+    if not isinstance(predicted_planets, list):
+        raise AssertionError(f"Expected 'classes' to be a list, got {type(predicted_planets)}")
 
 
 def test_predict_proba(client: TestClient, sample_image_bytes: bytes):
@@ -28,10 +32,11 @@ def test_predict_proba(client: TestClient, sample_image_bytes: bytes):
     }
     response = client.post('/planet/predict_proba', files=files)
 
-    assert response.status_code == HTTPStatus.OK
+    if response.status_code != HTTPStatus.OK:
+        raise AssertionError(f'Expected status {HTTPStatus.OK}, got {response.status_code}')
 
     planet2prob = response.json()
 
-    for planet_prob in planet2prob.values():
-        assert planet_prob <= 1
-        assert planet_prob >= 0
+    for planet, prob in planet2prob.items():
+        if prob < 0 or prob > 1:
+            raise AssertionError(f"Probability for planet '{planet}' is out of range: {prob}")
