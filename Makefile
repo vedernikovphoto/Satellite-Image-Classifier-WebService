@@ -1,8 +1,7 @@
 APP_PORT := 5000
-IMAGE_NAME := my-planet-app
 CONTAINER_NAME := my-planet-container
-DOCKER_TAG := latest
 DOCKER_IMAGE := my-planet-app
+DOCKER_TAG := latest
 
 DEPLOY_HOST := demo_host
 DVC_REMOTE_NAME := alexander_vedernikov_remote
@@ -22,7 +21,7 @@ build_image:
 
 .PHONY: run_container
 run_container:
-	docker run -d -p $(APP_PORT):$(APP_PORT) --name $(CONTAINER_NAME) $(IMAGE_NAME)
+	docker run -d -p $(APP_PORT):$(APP_PORT) --name $(CONTAINER_NAME) $(DOCKER_IMAGE)
 
 .PHONY: stop_container
 stop_container:
@@ -69,7 +68,7 @@ configure_dvc_remote:
 deploy:
 	ansible-playbook -vvvv -i deploy/ansible/inventory.ini deploy/ansible/deploy.yml \
 		-e host=$(DEPLOY_HOST) \
-		-e docker_image=$(IMAGE_NAME) \
+		-e docker_image=$(DOCKER_IMAGE) \
 		-e docker_tag=$(DOCKER_TAG) \
 		-e docker_registry_user=$(CI_REGISTRY_USER) \
 		-e docker_registry_password=$(CI_REGISTRY_PASSWORD) \
