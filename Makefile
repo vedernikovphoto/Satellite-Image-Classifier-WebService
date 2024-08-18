@@ -2,6 +2,7 @@ APP_PORT := 5000
 IMAGE_NAME := my-planet-app
 CONTAINER_NAME := my-planet-container
 DOCKER_TAG := latest
+DOCKER_IMAGE := my-planet-app
 
 DEPLOY_HOST := demo_host
 DVC_REMOTE_NAME := alexander_vedernikov_remote
