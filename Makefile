@@ -1,6 +1,7 @@
 APP_PORT := 5000
 IMAGE_NAME := my-planet-app
 CONTAINER_NAME := my-planet-container
+DOCKER_TAG := latest
 
 DEPLOY_HOST := demo_host
 DVC_REMOTE_NAME := alexander_vedernikov_remote
@@ -16,7 +17,7 @@ run_app:
 
 .PHONY: build_image
 build_image:
-	docker build -t $(IMAGE_NAME) .
+	docker build -f Dockerfile . --force-rm=true -t $(DOCKER_IMAGE):$(DOCKER_TAG)
 
 .PHONY: run_container
 run_container:
