@@ -8,6 +8,13 @@ from src.services.preprocess_utils import preprocess_image
 class PlanetClassifier:
     """
     A classifier for predicting planet classes from images using a pre-trained PyTorch model.
+
+    Attributes:
+        model (torch.jit.ScriptModule): The loaded PyTorch model.
+        device (torch.device): The device on which the model is running.
+        input_size (Tuple[int, int]): The expected input size of images.
+        classes (List[str]): The list of planet classes.
+        thresholds (Dict[str, float]): Thresholds for each class to determine if it is predicted.
     """
 
     def __init__(self, config: tp.Dict):
