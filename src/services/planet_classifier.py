@@ -8,11 +8,6 @@ from src.services.preprocess_utils import preprocess_image
 class PlanetClassifier:
     """
     A classifier for predicting planet classes from images using a pre-trained PyTorch model.
-
-    Attributes:
-        _cfg (dict): Configuration dictionary with keys 'model_path', 'device', 'classes',
-        'input_size', and 'thresholds'.
-        _model (torch.jit.ScriptModule): Loaded PyTorch model.
     """
 
     def __init__(self, config: tp.Dict):
