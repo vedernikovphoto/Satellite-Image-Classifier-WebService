@@ -86,9 +86,9 @@ class PlanetClassifier:
             probabilities = torch.sigmoid(torch.tensor(logits)).numpy()
 
         class_probabilities = {}
-        for i, _ in enumerate(classes):
-            class_name = classes[int(i)]
-            probability = round(float(probabilities[i]), 4)
+        for ind, _ in enumerate(classes):
+            class_name = classes[int(ind)]
+            probability = round(float(probabilities[ind]), 4)
             class_probabilities[class_name] = probability
         return class_probabilities
 
@@ -125,9 +125,9 @@ class PlanetClassifier:
         classes = self._cfg[self.classes_key]
         thresholds = self._cfg['thresholds']
 
-        for i, _ in enumerate(classes):
-            if predict[i] > thresholds:
-                selected_classes.append(classes[i])
+        for ind, _ in enumerate(classes):
+            if predict[ind] > thresholds:
+                selected_classes.append(classes[ind])
         return selected_classes
 
     def _postprocess_predict_proba(self, predict: np.ndarray) -> tp.Dict[str, float]:
@@ -144,6 +144,6 @@ class PlanetClassifier:
 
         sorted_indices = predict.argsort()[::-1]
         return {
-            classes[int(i)]: float(predict[i])
-            for i in sorted_indices
+            classes[int(ind)]: float(predict[ind])
+            for ind in sorted_indices
         }

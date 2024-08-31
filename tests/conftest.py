@@ -21,8 +21,8 @@ def sample_image_bytes():
 
     Reads a sample image file from the 'images' directory and yields its contents as bytes.
     """
-    with open(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'), 'rb') as f:
-        yield f.read()
+    with open(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'), 'rb') as image_file:
+        yield image_file.read()
 
 
 @pytest.fixture
