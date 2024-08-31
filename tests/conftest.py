@@ -18,12 +18,6 @@ logger = logging.getLogger(__name__)
 def sample_image_bytes():
     with open(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'), 'rb') as f:
         yield f.read()
-    
-    # f = open(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'), 'rb')  # noqa: WPS515
-    # try:
-    #     yield f.read()
-    # finally:
-    #     f.close()
 
 
 @pytest.fixture

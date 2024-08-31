@@ -22,12 +22,13 @@ class PlanetClassifier:
         :param cfg: Dictionary containing model path, device, classes, input size, and thresholds.
         """
         self._cfg = config
-
+        self.device_key = 'device'
+        self.classes_key = 'classes'
         model_path = self._cfg['model_path']
-        device = torch.device(self._cfg['device'])
+        device = torch.device(self._cfg[self.device_key])
         self._model = torch.jit.load(model_path, map_location=device)
 
-        self._model.to(self._cfg['device'])
+        self._model.to(self._cfg[self.device_key])
         self._model.eval()
 
     @property
@@ -37,7 +38,7 @@ class PlanetClassifier:
 
         :return: List of planet classes.
         """
-        return list(self._cfg['classes'])
+        return list(self._cfg[self.classes_key])
 
     @property
     def size(self) -> tp.Tuple:
@@ -65,11 +66,10 @@ class PlanetClassifier:
         :return: Dictionary mapping each planet class to its probability.
         """
         batch = preprocess_image(image, self._cfg['input_size'])
-        classes = self._cfg['classes']
-
+        classes = self._cfg[self.classes_key]
 
         with torch.no_grad():
-            batch_device = batch.to(self._cfg['device'])
+            batch_device = batch.to(self._cfg[self.device_key])
             model_output = self._model(batch_device)
             logits = model_output.detach().cpu()[0]
             probabilities = torch.sigmoid(torch.tensor(logits)).numpy()
@@ -91,7 +91,7 @@ class PlanetClassifier:
         batch = preprocess_image(image, self._cfg['input_size'])
 
         with torch.no_grad():
-            batch_on_device = batch.to(self._cfg['device'])
+            batch_on_device = batch.to(self._cfg[self.device_key])
             model_output = self._model(batch_on_device)
             model_predict = model_output.detach().cpu()[0]
 
@@ -105,9 +105,9 @@ class PlanetClassifier:
         :return: List of predicted planet classes based on the thresholds.
         """
         selected_classes = []
-        classes = self._cfg['classes']
+        classes = self._cfg[self.classes_key]
         thresholds = self._cfg['thresholds']
-        
+
         for i, _ in enumerate(classes):
             if predict[i] > thresholds:
                 selected_classes.append(classes[i])
@@ -120,8 +120,7 @@ class PlanetClassifier:
         :param predict: NumPy array of predicted probabilities.
         :return: Dictionary mapping each planet class to its probability.
         """
-
-        classes = self._cfg['classes']
+        classes = self._cfg[self.classes_key]
 
         sorted_indices = predict.argsort()[::-1]
         return {
