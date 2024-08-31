@@ -21,3 +21,4 @@ services:
       - selective_logging
       - blow_down
     input_size: [224, 224] 
+    thresholds: 0.5
