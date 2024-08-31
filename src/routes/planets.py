@@ -12,13 +12,13 @@ from src.services.planet_analysys import PlanetAnalytics
 @inject
 def classes_list(service: PlanetAnalytics = Depends(Provide[AppContainer.planet_analytics])):
     """
-    Endpoint to get the list of available classes.
+    Get the list of available classes.
 
     Args:
-        service (PlanetAnalytics): The PlanetAnalytics service injected by dependency injection.
+        service (PlanetAnalytics): Injected PlanetAnalytics service.
 
     Returns:
-        dict: A dictionary containing the list of classes available for prediction.
+        dict: Available classes for prediction.
     """
     return {
         'classes': service.classes,
@@ -32,14 +32,14 @@ def predict(
     service: PlanetAnalytics = Depends(Provide[AppContainer.planet_analytics]),
 ):
     """
-    Endpoint to predict the class of the input image.
+    Predict the class of the input image.
 
     Args:
-        image (bytes): The image file uploaded by the user.
-        service (PlanetAnalytics): The PlanetAnalytics service injected by dependency injection.
+        image (bytes): Uploaded image file.
+        service (PlanetAnalytics): Injected PlanetAnalytics service.
 
     Returns:
-        dict: A dictionary containing the predicted class for the image.
+        dict: Predicted class for the image.
     """
     img = cv2.imdecode(np.frombuffer(image, np.uint8), cv2.IMREAD_COLOR)
     classes = service.predict(img)
@@ -54,14 +54,14 @@ def predict_proba(
     service: PlanetAnalytics = Depends(Provide[AppContainer.planet_analytics]),
 ):
     """
-    Endpoint to predict the class probabilities for the input image.
+    Predict class probabilities for the input image.
 
     Args:
-        image (bytes): The image file uploaded by the user.
-        service (PlanetAnalytics): The PlanetAnalytics service injected by dependency injection.
+        image (bytes): Uploaded image file.
+        service (PlanetAnalytics): Injected PlanetAnalytics service.
 
     Returns:
-        dict: A dictionary containing the predicted probabilities for each class.
+        dict: Predicted probabilities for each class.
     """
     img = cv2.imdecode(np.frombuffer(image, np.uint8), cv2.IMREAD_COLOR)
     return service.predict_proba(img)
