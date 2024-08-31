@@ -16,11 +16,14 @@ logger = logging.getLogger(__name__)
 
 @pytest.fixture(scope=SESSION_SCOPE)
 def sample_image_bytes():
-    f = open(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'), 'rb')  # noqa: WPS515
-    try:
+    with open(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'), 'rb') as f:
         yield f.read()
-    finally:
-        f.close()
+    
+    # f = open(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'), 'rb')  # noqa: WPS515
+    # try:
+    #     yield f.read()
+    # finally:
+    #     f.close()
 
 
 @pytest.fixture
