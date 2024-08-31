@@ -3,6 +3,9 @@ from src.containers.containers import AppContainer
 
 
 class FakePlanetClassifier:
+    """
+    A fake classifier for testing purposes that returns fixed outputs.
+    """
 
     def predict(self, image):
         return []
@@ -12,6 +15,12 @@ class FakePlanetClassifier:
 
 
 def test_predicts_not_fail(app_container: AppContainer, sample_image_np: np.ndarray):
+    """
+    Test that the predict and predict_proba methods do not raise exceptions when called.
+
+    This test uses a FakePlanetClassifier to override the actual classifier and ensures
+    that the PlanetAnalytics methods run without errors.
+    """
     with app_container.reset_singletons():
         with app_container.planet_classifier.override(FakePlanetClassifier()):
             planet_analytics = app_container.planet_analytics()
@@ -20,6 +29,12 @@ def test_predicts_not_fail(app_container: AppContainer, sample_image_np: np.ndar
 
 
 def test_prob_less_or_equal_to_one(app_container: AppContainer, sample_image_np: np.ndarray):
+    """
+    Test that the probabilities returned by predict_proba are within the valid range [0, 1].
+
+    This test uses a FakePlanetClassifier and checks that all returned probabilities
+    are within the expected range.
+    """
     with app_container.reset_singletons():
         with app_container.planet_classifier.override(FakePlanetClassifier()):
             planet_analytics = app_container.planet_analytics()

@@ -16,27 +16,38 @@ class PlanetAnalytics:
         """
         Initializes the PlanetAnalytics with a given PlanetClassifier.
 
-        :param planet_classifier: An instance of PlanetClassifier used to predict planet classes.
+        Args:
+            planet_classifier (PlanetClassifier): The classifier used to predict planet classes.
         """
         self._planet_classifier = planet_classifier
 
     @property
-    def classes(self):
-        """Returns the list of possible planet classes."""
+    def classes(self) -> List[str]:
+        """Returns the list of possible planet classes.
+
+        Returns:
+            List[str]: A list of possible planet classes.
+        """
         return self._planet_classifier.classes
 
     def predict(self, image: np.ndarray) -> List[str]:
         """Predicts the classes for a planet image.
 
-        :param image: Input RGB image;
-        :return: List of planet classes.
+        Args:
+            image (np.ndarray): Input RGB image.
+
+        Returns:
+            List[str]: A list of predicted planet classes.
         """
         return self._planet_classifier.predict(image)
 
     def predict_proba(self, image: np.ndarray) -> Dict[str, float]:
         """Predicts the probabilities for each planet class.
 
-        :param image: Input RGB image;
-        :return: Dictionary with planet class as key and probability as value.
+        Args:
+            image (np.ndarray): Input RGB image.
+
+        Returns:
+            Dict[str, float]: A dictionary with the planet class as the key and the probability as the value.
         """
         return self._planet_classifier.predict_proba(image)

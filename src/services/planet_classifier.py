@@ -19,7 +19,8 @@ class PlanetClassifier:
         """
         Initializes the PlanetClassifier with a configuration dictionary.
 
-        :param cfg: Dictionary containing model path, device, classes, input size, and thresholds.
+        Args:
+            config (dict): Dictionary containing model path, device, classes, input size, and thresholds.
         """
         self._cfg = config
         self.device_key = 'device'
@@ -36,16 +37,18 @@ class PlanetClassifier:
         """
         Returns the list of planet classes.
 
-        :return: List of planet classes.
+        Returns:
+            List[str]: A list of planet classes.
         """
         return list(self._cfg[self.classes_key])
 
     @property
-    def size(self) -> tp.Tuple:
+    def size(self) -> tp.Tuple[int, int]:
         """
         Returns the input size of the images.
 
-        :return: Tuple representing the width and height of the input image.
+        Returns:
+            Tuple[int, int]: The width and height of the input image.
         """
         return self._cfg['input_size']
 
@@ -53,8 +56,11 @@ class PlanetClassifier:
         """
         Predicts planet classes for the given image.
 
-        :param image: RGB image as a NumPy array.
-        :return: List of predicted planet classes.
+        Args:
+            image (np.ndarray): RGB image as a NumPy array.
+
+        Returns:
+            List[str]: A list of predicted planet classes.
         """
         return self._postprocess_predict(self._predict(image))
 
@@ -62,8 +68,11 @@ class PlanetClassifier:
         """
         Predicts the probabilities of planet classes for the given image.
 
-        :param image: RGB image as a NumPy array.
-        :return: Dictionary mapping each planet class to its probability.
+        Args:
+            image (np.ndarray): RGB image as a NumPy array.
+
+        Returns:
+            Dict[str, float]: A dictionary mapping each planet class to its probability.
         """
         batch = preprocess_image(image, self._cfg['input_size'])
         classes = self._cfg[self.classes_key]
@@ -85,8 +94,11 @@ class PlanetClassifier:
         """
         Runs the model to predict probabilities for the given image.
 
-        :param image: RGB image as a NumPy array.
-        :return: NumPy array of predicted probabilities.
+        Args:
+            image (np.ndarray): RGB image as a NumPy array.
+
+        Returns:
+            np.ndarray: Array of predicted probabilities.
         """
         batch = preprocess_image(image, self._cfg['input_size'])
 
@@ -101,8 +113,11 @@ class PlanetClassifier:
         """
         Post-processes the predicted probabilities to obtain a list of planet classes.
 
-        :param predict: NumPy array of predicted probabilities.
-        :return: List of predicted planet classes based on the thresholds.
+        Args:
+            predict (np.ndarray): Array of predicted probabilities.
+
+        Returns:
+            List[str]: A list of predicted planet classes based on the thresholds.
         """
         selected_classes = []
         classes = self._cfg[self.classes_key]
@@ -117,8 +132,11 @@ class PlanetClassifier:
         """
         Post-processes the predicted probabilities to obtain a dictionary of class probabilities.
 
-        :param predict: NumPy array of predicted probabilities.
-        :return: Dictionary mapping each planet class to its probability.
+        Args:
+            predict (np.ndarray): Array of predicted probabilities.
+
+        Returns:
+            Dict[str, float]: A dictionary mapping each planet class to its probability.
         """
         classes = self._cfg[self.classes_key]
 

@@ -3,6 +3,10 @@ from http import HTTPStatus
 
 
 def test_genres_list(client: TestClient):
+    """
+    Test the endpoint that returns a list of planet classes.
+    Verifies that the response status is OK and that the returned classes are a list.
+    """
     response = client.get('/planet/classes')
     if response.status_code != HTTPStatus.OK:
         raise AssertionError(f'Expected status {HTTPStatus.OK}, got {response.status_code}')
@@ -13,6 +17,10 @@ def test_genres_list(client: TestClient):
 
 
 def test_predict(client: TestClient, sample_image_bytes: bytes):
+    """
+    Test the endpoint that predicts planet classes from an image.
+    Verifies that the response status is OK and that the returned classes are a list.
+    """
     files = {
         'image': sample_image_bytes,
     }
@@ -27,6 +35,10 @@ def test_predict(client: TestClient, sample_image_bytes: bytes):
 
 
 def test_predict_proba(client: TestClient, sample_image_bytes: bytes):
+    """
+    Test the endpoint that predicts the probability distribution over planet classes from an image.
+    Verifies that the response status is OK and that the probabilities are within the valid range [0, 1].
+    """
     files = {
         'image': sample_image_bytes,
     }
