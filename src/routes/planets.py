@@ -5,17 +5,17 @@ from fastapi import Depends, File
 
 from src.containers.containers import AppContainer
 from src.routes.routers import router
-from src.services.planet_analysys import PlanetAnalytics
+from src.services.planet_classifier import PlanetClassifier
 
 
 @router.get('/classes')
 @inject
-def classes_list(service: PlanetAnalytics = Depends(Provide[AppContainer.planet_analytics])):
+def classes_list(service: PlanetClassifier = Depends(Provide[AppContainer.planet_classifier])):
     """
     Get the list of available classes.
 
     Args:
-        service (PlanetAnalytics): Injected PlanetAnalytics service.
+        service (PlanetClassifier): Injected PlanetClassifier service.
 
     Returns:
         dict: Available classes for prediction.
@@ -29,14 +29,14 @@ def classes_list(service: PlanetAnalytics = Depends(Provide[AppContainer.planet_
 @inject
 def predict(
     image: bytes = File(...),
-    service: PlanetAnalytics = Depends(Provide[AppContainer.planet_analytics]),
+    service: PlanetClassifier = Depends(Provide[AppContainer.planet_classifier]),
 ):
     """
     Predict the class of the input image.
 
     Args:
         image (bytes): Uploaded image file.
-        service (PlanetAnalytics): Injected PlanetAnalytics service.
+        service (PlanetClassifier): Injected PlanetClassifier service.
 
     Returns:
         dict: Predicted class for the image.
@@ -51,14 +51,14 @@ def predict(
 @inject
 def predict_proba(
     image: bytes = File(...),
-    service: PlanetAnalytics = Depends(Provide[AppContainer.planet_analytics]),
+    service: PlanetClassifier = Depends(Provide[AppContainer.planet_classifier]),
 ):
     """
     Predict class probabilities for the input image.
 
     Args:
         image (bytes): Uploaded image file.
-        service (PlanetAnalytics): Injected PlanetAnalytics service.
+        service (PlanetClassifier): Injected PlanetClassifier service.
 
     Returns:
         dict: Predicted probabilities for each class.
