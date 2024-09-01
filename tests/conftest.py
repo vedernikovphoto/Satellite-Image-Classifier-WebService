@@ -41,9 +41,9 @@ def app_config():
     """
     Fixture to provide the application configuration.
 
-    Loads the test configuration from 'test_config.yml' using OmegaConf.
+    Loads the configuration from '/project_root_folder/config/config.yml' using OmegaConf.
     """
-    return OmegaConf.load(os.path.join(TESTS_DIR, 'test_config.yml'))
+    return OmegaConf.load(os.path.join(TESTS_DIR, '..', 'config', 'config.yml'))
 
 
 @pytest.fixture(scope=SESSION_SCOPE)
