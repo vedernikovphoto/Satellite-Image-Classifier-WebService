@@ -1,7 +1,7 @@
 services:
   planet_classifier:
     model_path: 'weights/model.pt'
-    device: ${oc.env:PLANET_DEVICE,'cuda'}
+    device: 'cpu'
     classes:
       - haze
       - primary
