@@ -3,15 +3,18 @@ FROM python:3.9-slim
 WORKDIR /app
 
 COPY requirements.txt .
+
 RUN pip install --upgrade pip && \
     pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.2+cu118 -f https://download.pytorch.org/whl/torch_stable.html && \
-    pip install -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
-    build-essential \
+    build-essential  python3-pip python3-dev --no-install-recommends && \
     make
+    rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
