@@ -1,15 +1,15 @@
-import os
 import cv2
 import pytest
 import logging
 from fastapi.testclient import TestClient
 from omegaconf import OmegaConf
+from pathlib import Path
 
 from app import app
 from src.containers.containers import AppContainer
 from src.routes import planets as planet_routes
 
-TESTS_DIR = os.path.dirname(__file__)
+TESTS_DIR = Path(__file__).absolute()
 SESSION_SCOPE = 'session'
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,8 @@ def sample_image_bytes():
 
     Reads a sample image file from the 'images' directory and yields its contents as bytes.
     """
-    with open(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'), 'rb') as image_file:
+    image_path = TESTS_DIR / 'images' / 'file_99.jpg'
+    with image_path.open('rb') as image_file:
         yield image_file.read()
 
 
@@ -32,7 +33,8 @@ def sample_image_np():
 
     Reads a sample image file, converts it from BGR to RGB format, and returns it as a NumPy array.
     """
-    img = cv2.imread(os.path.join(TESTS_DIR, 'images', 'file_99.jpg'))
+    image_path = TESTS_DIR / 'images' / 'file_99.jpg'
+    img = cv2.imread(str(image_path))
     return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 
@@ -43,7 +45,8 @@ def app_config():
 
     Loads the configuration from '/project_root_folder/config/config.yml' using OmegaConf.
     """
-    return OmegaConf.load(os.path.join(TESTS_DIR, '..', 'config', 'config.yml'))
+    config_path = TESTS_DIR / '..' / 'config' / 'config.yml'
+    return OmegaConf.load(config_path)
 
 
 @pytest.fixture(scope=SESSION_SCOPE)
