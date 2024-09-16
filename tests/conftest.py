@@ -21,7 +21,7 @@ def sample_image_bytes():
 
     Reads a sample image file from the 'images' directory and yields its contents as bytes.
     """
-    image_path = TESTS_DIR / 'images' / 'file_99.jpg'
+    image_path = TESTS_DIR.parent / 'images' / 'file_99.jpg'
     with image_path.open('rb') as image_file:
         yield image_file.read()
 
@@ -33,7 +33,7 @@ def sample_image_np():
 
     Reads a sample image file, converts it from BGR to RGB format, and returns it as a NumPy array.
     """
-    image_path = TESTS_DIR / 'images' / 'file_99.jpg'
+    image_path = TESTS_DIR.parent / 'images' / 'file_99.jpg'
     img = cv2.imread(str(image_path))
     return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
@@ -45,7 +45,7 @@ def app_config():
 
     Loads the configuration from '/project_root_folder/config/config.yml' using OmegaConf.
     """
-    config_path = TESTS_DIR / '..' / 'config' / 'config.yml'
+    config_path = TESTS_DIR.parents[1] / 'config' / 'config.yml'
     return OmegaConf.load(config_path)
 
 
