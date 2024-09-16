@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     build-essential \
     make
+    rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
