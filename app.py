@@ -1,4 +1,5 @@
 import uvicorn
+import argparse
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from omegaconf import OmegaConf
@@ -54,13 +55,27 @@ def create_app() -> FastAPI:
 
     app.get('/', response_class=HTMLResponse)(root)
 
-    app.include_router(app_router, prefix='/planet', tags=['planet'])  # Updated prefix and tags
+    app.include_router(app_router, prefix='/planet', tags=['planet'])
 
     return app
 
 
-app = create_app()
+def arg_parse():
+    """
+    Parses command-line arguments to configure the FastAPI application.
+
+    Returns:
+        argparse.Namespace: Parsed command-line arguments.
+    """
+    parser = argparse.ArgumentParser(description='Run the FastAPI application.')
+    parser.add_argument('--host', type=str, default='127.0.0.1', help='Host address to run the application')
+    parser.add_argument('--port', type=int, default=DEFAULT_PORT, help='Port number to run the application')
+    parser.add_argument('--config', type=str, default='config/config.yml', help='Path to the configuration file')
+
+    return parser.parse_args()
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='127.0.0.1', port=DEFAULT_PORT)
+    args = arg_parse()
+    app = create_app(config_path=args.config)
+    uvicorn.run(app, host=args.host, port=args.port)
