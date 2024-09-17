@@ -66,7 +66,7 @@ class PlanetClassifier:
         """
         return self._postprocess_predict(self._predict(image))
 
-    def predict_proba(self, image: np.ndarray) -> tp.Dict[str, float]:
+    def predict_proba(self, image: np.ndarray) -> tp.Dict[str, float]:  # noqa: WPS210
         """
         Predicts the probabilities of planet classes for the given image.
 

@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Update package list and install system dependencies
-sudo apt-get update
-sudo apt-get install -y libgl1-mesa-glx
+# sudo apt-get update
+# sudo apt-get install -y libgl1-mesa-glx
 
 # Install NVIDIA Container Toolkit (Host setup)
-sudo apt-key adv --fetch-keys https://nvidia.github.io/nvidia-docker/gpgkey
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-sudo apt-get update
-sudo apt-get install -y nvidia-container-toolkit
-sudo systemctl restart docker
+# sudo apt-key adv --fetch-keys https://nvidia.github.io/nvidia-docker/gpgkey
+# distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+# curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+# sudo apt-get update
+# sudo apt-get install -y nvidia-container-toolkit
+# sudo systemctl restart docker
 
 # Check if Python 3.9 is installed
 if ! python3.9 --version &>/dev/null; then
