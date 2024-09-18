@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from omegaconf import OmegaConf
 from pathlib import Path
 
-from app import app
+from app import create_app
 from src.containers.containers import AppContainer
 from src.routes import planets as planet_routes
 
@@ -81,9 +81,9 @@ def test_app(wired_app_container):
     """
     Fixture to provide the FastAPI application instance.
 
-    Returns the FastAPI app instance for use in tests.
+    Returns the FastAPI app instance by invoking the create_app factory.
     """
-    return app
+    return create_app()
 
 
 @pytest.fixture(scope=SESSION_SCOPE)
