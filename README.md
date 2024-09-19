@@ -1,97 +1,80 @@
 # Planet Classification Web Service
 
-This repository contains the web service for predicting planet classes from images using a deep learning model.
+This project provides a FastAPI-based web service that performs planet classification using a pre-trained computer vision model. The model is implemented with PyTorch and saved with TorchScript for efficient inference. The service offers an easy-to-use API for image classification tasks, enabling users to send images and receive predictions on planet classes.
 
-## Project Overview
 
-This project is a FastAPI-based web service that utilizes a trained deep learning model to classify planet images into multiple categories. The model is trained using PyTorch and TorchScript is used to save the model for inference.
+## Installation
 
-## Getting Started
+1. **Clone the repository:**
+   ```sh
+   git clone https://gitlab.deepschool.ru/cvr8/a.vedernikov/hw-01-service.git
+   cd hw-01-service
+   ```
 
-### Clone the Repository
+2. **Install the required packages and set up the environment:**
+   ```sh
+   make install
+   ```
 
-```bash
-git clone https://gitlab.deepschool.ru/cvr8/a.vedernikov/hw-01-service.git
-cd hw-01-service
-```
-
-## Setup Environment
-
-1. **Install Dependencies**:
-To set up the environment and install the required packages, run the following command
-```sh
-make install
-```
-
-2. **Setup Configuration**:
+3. **Setup Configuration**:
 Ensure that the configuration file `config/config.yml` is correctly set up with the paths to your model weights and other necessary configurations.
-
-3. **Run Linters (Optional)**:
-To check for code quality and style, use wemake-python-styleguide. The linter configurations are specified in the `setup.cfg` file. To run the linter use the following command:
-
-```sh
-make lint
-```
-This will apply the linting rules defined in `setup.cfg` to the entire project.
 
 
 ## Model Versioning
-We use DVC for model versioning. The latest and best model can be found in the DVC storage. To download the latest model weights from the remote storage, follow these steps:
+We use DVC for model versioning. The model weights are stored in a private remote storage configured through DVC. If you have access to this storage, follow the steps below to retrieve the weights:
 
 1. **Install DVC (if not already installed)**:
-Run the following command to install the required dependencies, including DVC:
-```bash
-make install_dvc
-```
+   Run the following command to install the required dependencies, including DVC:
+   ```sh
+   make install_dvc
+   ```
 
-2. **Configure DVC and Pull the Latest Weights**:
-Run the following command to configure the DVC remote and pull the latest model weights:
-```bash
-make pull_weights USERNAME=your_username KEY_FILE=/path/to/your/key_rsa
-```
+2. **Configure DVC and pull the latest weights:** 
+   Run the following command to configure the DVC remote and pull the latest model weights:
+   ```bash
+   make pull_weights USERNAME=<username> KEY_FILE=<path_to_private_key>
+   ```
 
-3. **Verify the Downloaded Files**:
-To verify that the weights have been downloaded correctly, run:
-```bash
-ls weights
-```
+3. **Verify the downloaded files:** 
+   After pulling the files, verify them using:
+   ```bash
+   ls weights
+   ```
 
-This will download the necessary files to your local setup, making it ready for inference or further training. For the inference, place the downloaded file into the `weights` folder.
+This process ensures that you have the necessary files in your local setup for inference or further training. For inference, place the downloaded file into the `weights` folder.
+
+If you do not have access to the mentioned private remote storage, you can request the model weights by sending an email to [alexander.vedernikov.edu@gmail.com](mailto:alexander.vedernikov.edu@gmail.com). Once you receive the weights, place them in the `weights` directory.
 
 
 ## Running the Service
 
-1. **Locally**:
-Run the FastAPI service locally:
-```sh
-make run_app
-```
-- Visit the service at `http://127.0.0.1:5000`.
-- Explore the API documentation at `http://127.0.0.1:5000/docs`.
+You can run the web service locally or using Docker. Below are the instructions for both methods:
 
+### 1. Running FastAPI service Locally:
+   ```sh
+  make run_app
+   ```
 
-2. **Using Docker**:
-You can also run the service inside a Docker container using the provided `Makefile` commands:
+Once the service is running, you can access it at `http://127.0.0.1:5000`. The API documentation can be found at `http://127.0.0.1:5000/docs`.
 
-   - **Build Docker Image**:
-     To build the Docker image, use the following command:
-     ```sh
-     make build_image
-     ```
+### 2. Running with Docker:
 
-   - **Run Docker Container**:
-     To run the service inside a Docker container:
-     ```sh
-     make run_container
-     ```
+- Build the Docker image:
+   ```sh
+   make build_image
+   ```
 
-   After running the container, visit `http://127.0.0.1:5000/docs` to explore the API documentation.
+- Run Docker Container:
+   ```sh
+   make run_container
+   ```
 
-   - **Stop Docker Container**:
-     To stop and remove the Docker container:
-     ```sh
-     make stop_container
-     ```
+  Once the container is running, you can visit `http://127.0.0.1:5000/docs` to explore the API documentation.
+
+- Stop and Remove Docker Container:
+   ```sh
+   make stop_container
+   ```
 
 
 ## Testing
@@ -101,31 +84,70 @@ This project includes both unit and integration tests to ensure the functionalit
 ### Running Tests
 
 1. **Run All Tests**:
-To execute all tests, run the following command:
-```sh
-make run_all_tests
-```
-2. **Run Unit Tests Only**: 
-To run only the unit tests, use:
-```sh
-make run_unit_tests
-```
+   ```sh
+   make run_all_tests
+   ```
+
+2. **Run Unit Tests Only**:
+   ```sh
+   make run_unit_tests
+   ```
+
 3. **Run Integration Tests Only**:
-To run only the integration tests, use:
-```sh
-make run_integration_tests
-```
+   ```sh
+   make run_integration_tests
+   ```
+
 4. **Generate Coverage Report**:
-You can also run specific test files or individual tests. For example, to run the integration tests for the API endpoints:
-```sh
-make generate_coverage_report
-```
+   ```sh
+   make generate_coverage_report
+   ```
 
 The report will be generated in an HTML format and can be viewed by opening the `htmlcov/index.html` file in your browser.
 
 ### Running Specific Tests
-If you still prefer to run specific test files or individual tests directly, you can use pytest commands as well. For example, to run the integration tests for the API endpoints:
+You can run specific test files or individual tests directly using pytest commands. For example, to run the integration tests for the API endpoints:
 
 ```sh
 pytest tests/integration/test_planets_endpoints.py
 ```
+
+## Linting
+We use `wemake-python-styleguide` for linting to ensure code quality and maintain consistent style. The linter configurations are specified in the `setup.cfg` file.
+   ```sh
+   make lint
+   ```
+
+
+## Continuous Integration and Deployment (CI/CD)
+
+This project uses GitLab CI/CD for automating the testing, building, and deployment process. The GitLab pipeline consists of the following stages:
+
+1. **Prepare**: Model weights are pulled from the DVC remote storage using SSH authentication.
+
+2. **Build**: The Docker image is built and pushed to the GitLab container registry.
+
+3. **Lint**: Code quality is checked using `wemake-python-styleguide`.
+
+4. **Tests**: Unit and integration tests are run inside a Docker container to ensure functionality.
+
+5. **Deploy**: Ansible is used to deploy the service to a remote host. Deployment can be manually triggered when required.
+
+To view the complete pipeline configuration, refer to the `.gitlab-ci.yml` file.
+
+
+## Deployment Automation with Ansible
+
+This project uses Ansible for automating deployment, container management, and cleanup tasks. The Ansible playbooks (`deploy.yml` and `destroy.yml`) are configured to:
+
+1. **Deploy**: Pull the latest Docker image, stop and remove any existing containers, and run the service in a new container.
+   ```sh
+   make deploy
+   ```
+
+2. **Destroy**: Stop and remove the running container and clean up Docker images and containers.
+   ```sh
+   make destroy
+   ```
+
+The deployment process uses an inventory file (`inventory.ini`) to define the target host and environment variables, while the templates for automation scripts (e.g., `pull.sh`, `run.sh`, `clean.sh`, `destroy.sh`) ensure a streamlined process for managing the service lifecycle.
