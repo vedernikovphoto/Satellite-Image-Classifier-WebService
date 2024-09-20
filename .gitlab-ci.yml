@@ -1,12 +1,7 @@
 image: python:3.8
 
 variables:
-  # This variable holds the path to the container registry image associated with the project.
-  # Don't need to set this manually; GitLab automatically provides this based on the project's registry.
   DOCKER_IMAGE: $CI_REGISTRY_IMAGE
-
-  # This variable holds the short version of the commit SHA (a unique identifier for each commit).
-  # This is automatically provided by GitLab and doesn't need to be set manually.
   DOCKER_TAG: $CI_COMMIT_SHORT_SHA
 
 stages:
@@ -41,8 +36,6 @@ stages:
 .docker_login: &docker_login
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-# Don't need to manually set these variables or services. 
-# They are configured to ensure that Docker can run properly inside CI jobs. 
 .docker_common: &docker_common
   image: docker
   variables:

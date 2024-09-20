@@ -9,7 +9,7 @@ from src.routes.routers import router as app_router
 from src.routes import planets as planet_routes
 
 
-DEFAULT_PORT = 2444
+DEFAULT_PORT = 5007
 
 
 def root() -> HTMLResponse:

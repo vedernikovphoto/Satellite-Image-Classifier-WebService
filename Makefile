@@ -1,6 +1,6 @@
 .PHONY: *
 
-APP_PORT := 5000
+APP_PORT := 5007
 CONTAINER_NAME := my-planet-container
 DOCKER_IMAGE := my-planet-app
 DOCKER_TAG := latest

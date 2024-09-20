@@ -18,6 +18,6 @@ RUN pip install --upgrade pip && \
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 5007
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5007"]
