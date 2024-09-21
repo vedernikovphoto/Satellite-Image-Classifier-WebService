@@ -68,7 +68,7 @@ def arg_parse():
         argparse.Namespace: Parsed command-line arguments.
     """
     parser = argparse.ArgumentParser(description='Run the FastAPI application.')
-    parser.add_argument('--host', type=str, default='127.0.0.1', help='Host address to run the application')
+    parser.add_argument('--host', type=str, default='0.0.0.0', help='Host address to run the application')
     parser.add_argument('--port', type=int, default=DEFAULT_PORT, help='Port number to run the application')
     parser.add_argument('--config', type=str, default='config/config.yml', help='Path to the configuration file')
 

@@ -14,7 +14,7 @@ install:
 	@bash setup.sh
 
 run_app:
-	PYTHONPATH=. python3 -m uvicorn app:create_app --host='127.0.0.1' --port=$(APP_PORT) --factory
+	PYTHONPATH=. python3 -m uvicorn app:create_app --host='0.0.0.0' --port=$(APP_PORT) --factory
 
 build_image:
 	docker build -f Dockerfile . --force-rm=true -t $(DOCKER_IMAGE):$(DOCKER_TAG)

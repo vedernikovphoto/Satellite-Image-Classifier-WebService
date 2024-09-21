@@ -55,7 +55,7 @@ You can run the web service locally or using Docker. Below are the instructions 
   make run_app
    ```
 
-Once the service is running, you can access it at `http://127.0.0.1:5007`. The API documentation can be found at `http://127.0.0.1:5007/docs`.
+Once the service is running, you can access it at `http://0.0.0.0:5007`. The API documentation can be found at `http://0.0.0.0:5007/docs`.
 
 ### 2. Running with Docker:
 
@@ -69,7 +69,7 @@ Once the service is running, you can access it at `http://127.0.0.1:5007`. The A
    make run_container
    ```
 
-  Once the container is running, you can visit `http://127.0.0.1:5007/docs` to explore the API documentation.
+  Once the container is running, you can visit `http://0.0.0.0:5007/docs` to explore the API documentation.
 
 - Stop and Remove Docker Container:
    ```sh
