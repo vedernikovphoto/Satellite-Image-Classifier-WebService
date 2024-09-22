@@ -20,4 +20,4 @@ COPY . .
 
 EXPOSE 5007
 
-CMD ["make", "run_app"]
+CMD make run_app
