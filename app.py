@@ -78,4 +78,4 @@ def arg_parse():
 if __name__ == '__main__':
     args = arg_parse()
     app = create_app(config_path=args.config)
-    uvicorn.run(app, port=5007, host='0.0.0.0')
+    uvicorn.run(app, host=args.host, port=args.port)
