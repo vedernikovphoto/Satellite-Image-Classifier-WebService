@@ -1,14 +1,13 @@
-# Planet Classification Web Service
+# Satellite Image Classifier WebService
 
-This project provides a FastAPI-based web service that performs planet classification using a pre-trained computer vision model. The model is implemented with PyTorch and saved with TorchScript for efficient inference. The service offers an easy-to-use API for image classification tasks, enabling users to send images and receive predictions on planet classes.
-
+This project provides a FastAPI-based web service for planet classification using a pre-trained computer vision model, implemented in PyTorch and exported with TorchScript for efficient inference. The solution integrates Docker for containerization, Ansible for deployment automation, and DVC for model versioning. The CI/CD pipeline is handled via GitLab, ensuring automated testing, linting, and deployment workflows
 
 ## Installation
 
 1. **Clone the repository:**
    ```sh
-   git clone https://gitlab.deepschool.ru/cvr8/a.vedernikov/hw-01-service.git
-   cd hw-01-service
+   git clone https://github.com/vedernikovphoto/Satellite-Image-Classifier-WebService.git
+   cd Satellite-Image-Classifier-WebService
    ```
 
 2. **Install the required packages and set up the environment:**
