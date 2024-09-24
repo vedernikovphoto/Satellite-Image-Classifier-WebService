@@ -1,6 +1,6 @@
 # Satellite Image Classifier WebService
 
-This project provides a FastAPI-based web service for planet classification using a pre-trained computer vision model, implemented in PyTorch and exported with TorchScript for efficient inference. The solution integrates Docker for containerization, Ansible for deployment automation, and DVC for model versioning. The CI/CD pipeline is handled via GitLab, ensuring automated testing, linting, and deployment workflows
+This project provides a FastAPI-based web service for planet classification using a pre-trained computer vision model, implemented in PyTorch and exported with TorchScript for efficient inference. The solution integrates Docker for containerization, Ansible for deployment automation, and DVC for model versioning. The CI/CD pipeline is handled via GitLab, ensuring automated testing, linting, and deployment workflows.
 
 ## Installation
 
